@@ -84,7 +84,7 @@ const SignUp = () => {
           </svg>
           Login with Google
         </button>
-        <p className="mt-5">
+        <p>
           if you dont have account!!{" "}
           <span>
             <Link className="text-primary" to={"/login"}>
