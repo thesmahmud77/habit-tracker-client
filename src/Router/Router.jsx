@@ -6,6 +6,7 @@ import SignUp from "../pages/Auth/SignUp";
 import AddHabiit from "../pages/AddHabiit";
 import MyHabit from "../pages/MyHabit";
 import PublicHabits from "../pages/PublicHabits";
+import Myprofile from "../pages/Myprofile";
 
 export const router = createBrowserRouter([
   {
@@ -31,5 +32,9 @@ export const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp></SignUp>,
+  },
+  {
+    path: "/profile",
+    element: <Myprofile></Myprofile>,
   },
 ]);

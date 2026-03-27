@@ -23,21 +23,30 @@ const NavMenu = () => {
         </div>
         <div className="col-span-2 flex items-center justify-end gap-5 ">
           <div>
-            <img
-              src={
-                user
-                  ? user.photoURL
-                  : "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
-              }
-              alt="user"
-              className="w-[50px] h-[50px] object-cover rounded-full border-3"
-            />
+            <NavLink to={"/profile"}>
+              <img
+                src={
+                  user
+                    ? user.photoURL
+                    : "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
+                }
+                alt="user"
+                className="w-[50px] h-[50px] object-cover rounded-full border-3"
+              />
+            </NavLink>
           </div>
           <div>
             {user ? (
-              <button onClick={handleSignOut}>SignOut</button>
+              <button
+                className=" px-8 py-2 font-bold rounded-xl bg-red-500"
+                onClick={handleSignOut}
+              >
+                SignOut
+              </button>
             ) : (
-              <NavLink className={"/login"}>Login</NavLink>
+              <NavLink className={"btn-primary"} to={"/login"}>
+                Login
+              </NavLink>
             )}
           </div>
         </div>
