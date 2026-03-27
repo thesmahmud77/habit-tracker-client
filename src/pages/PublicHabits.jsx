@@ -1,14 +1,15 @@
 import React from "react";
-import NavMenu from "../Components/NavMenu";
 import MainContainer from "../Container/MainContainer";
+import NavMenu from "../Components/NavMenu";
+import Footer from "../Components/Footer";
 
-const MyBookings = () => {
+const PublicHabits = () => {
   return (
     <MainContainer>
       <NavMenu></NavMenu>
-      <h1>My Bookings</h1>
+      <Footer></Footer>
     </MainContainer>
   );
 };
 
-export default MyBookings;
+export default PublicHabits;

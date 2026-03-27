@@ -5,24 +5,23 @@ const NavMenu = () => {
   return (
     <div>
       <div className="grid grid-cols-12">
-        <div>
-          <NavLink className={"btn-primary font-bold"} to={"/"}>
+        <div className="col-span-2 flex items-center justify-start ">
+          <NavLink className={"font-bold "} to={"/"}>
             LOGO
           </NavLink>
         </div>
-        <div className="flex items-center justify-center gap-2 col-span-7">
-          <NavLink className={"btn-primary"} to={"/"}>
-            Home
-          </NavLink>
-          <NavLink className={"btn-primary"} to={"/room"}>
-            Rooms
-          </NavLink>
-          <NavLink className={"btn-primary"} to={"/my-bookings"}>
-            My Bookings
-          </NavLink>
+        <div className="col-span-8 flex items-center justify-center gap-2  gap-8">
+          <NavLink to={"/"}>Home</NavLink>
+          <NavLink to={"/addhabit"}>Add Habit</NavLink>
+          <NavLink to={"/myhabbit"}>My Habbit</NavLink>
+          <NavLink to={"/publichabits"}>Public Habits</NavLink>
         </div>
-        <div className="col-span-3">
-          <img src="" alt="" />
+        <div className="col-span-2 flex items-center justify-end gap-5 ">
+          <img
+            src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
+            alt="user"
+            className="w-[50px] h-[50px] object-cover rounded-full border-3"
+          />
           <NavLink className={"btn-primary"} to={"/login"}>
             login
           </NavLink>

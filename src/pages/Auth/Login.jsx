@@ -11,15 +11,6 @@ const Login = () => {
       <div className=" bg-amber-400 flex items-center justify-center min-h-screen flex-col">
         <form action="">
           <fieldset className="fieldset">
-            <div className="Name">
-              <label className="name">Name</label>
-              <input
-                name="name"
-                type="text"
-                className="input"
-                placeholder="Name"
-              />
-            </div>
             <div className="email">
               <label className="email">Email</label>
               <input
@@ -27,15 +18,6 @@ const Login = () => {
                 type="email"
                 className="input"
                 placeholder="Email"
-              />
-            </div>
-            <div className="photo-url">
-              <label className="label">Email</label>
-              <input
-                name="photo"
-                type="text"
-                className="input"
-                placeholder="Photo-Url"
               />
             </div>
             <div className="password">
@@ -47,10 +29,10 @@ const Login = () => {
                 placeholder="Password"
               />
             </div>
-            <div>
+            <div className="forget password">
               <a className="link link-hover">Forgot password?</a>
             </div>
-            <button className="btn btn-neutral mt-1">Register</button>
+            <button className="btn btn-neutral mt-1">Login</button>
           </fieldset>
         </form>
         {/* <!-- Google --> */}
@@ -84,11 +66,10 @@ const Login = () => {
           </svg>
           Login with Google
         </button>
-        <p>
-          if you dont have account!!{" "}
+        <p className="mt-5">
+          if you dont have account!!
           <span>
             <Link className="text-primary" to={"/signup"}>
-              {" "}
               Please Register
             </Link>
           </span>
