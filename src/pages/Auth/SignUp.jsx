@@ -1,15 +1,26 @@
-import React from "react";
+import React, { use } from "react";
 import MainContainer from "../../Container/MainContainer";
 import NavMenu from "../../Components/NavMenu";
 import Footer from "../../Components/Footer";
 import { Link } from "react-router";
+import { AuthContext } from "../../Context/AuthContext";
 
 const SignUp = () => {
+  const { GoogleSignUp } = use(AuthContext);
+  const handleGoogleSignIn = () => {
+    GoogleSignUp()
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <MainContainer>
       <NavMenu></NavMenu>
       <div className=" bg-amber-400 flex items-center justify-center min-h-screen flex-col">
-        <form action="">
+        <form>
           <fieldset className="fieldset">
             <div className="Name">
               <label className="name">Name</label>
@@ -54,7 +65,10 @@ const SignUp = () => {
           </fieldset>
         </form>
         {/* <!-- Google --> */}
-        <button class="btn mt-5 bg-white text-black border-[#e5e5e5] w-[260px]">
+        <button
+          onClick={handleGoogleSignIn}
+          class="btn mt-5 bg-white text-black border-[#e5e5e5] w-[260px]"
+        >
           <svg
             aria-label="Google logo"
             width="16"
