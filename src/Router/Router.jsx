@@ -7,6 +7,7 @@ import AddHabiit from "../pages/AddHabiit";
 import MyHabit from "../pages/MyHabit";
 import PublicHabits from "../pages/PublicHabits";
 import Myprofile from "../pages/Myprofile";
+import PrivateRoutes from "./Private-Routes/PrivateRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -15,11 +16,19 @@ export const router = createBrowserRouter([
   },
   {
     path: "/addhabit",
-    element: <AddHabiit></AddHabiit>,
+    element: (
+      <PrivateRoutes>
+        <AddHabiit></AddHabiit>
+      </PrivateRoutes>
+    ),
   },
   {
     path: "/myhabbit",
-    element: <MyHabit></MyHabit>,
+    element: (
+      <PrivateRoutes>
+        <MyHabit></MyHabit>
+      </PrivateRoutes>
+    ),
   },
   {
     path: "/publichabits",
@@ -35,6 +44,10 @@ export const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <Myprofile></Myprofile>,
+    element: (
+      <PrivateRoutes>
+        <Myprofile></Myprofile>
+      </PrivateRoutes>
+    ),
   },
 ]);

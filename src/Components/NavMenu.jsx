@@ -17,24 +17,32 @@ const NavMenu = () => {
         </div>
         <div className="col-span-8 flex items-center justify-center gap-2  gap-8">
           <NavLink to={"/"}>Home</NavLink>
-          <NavLink to={"/addhabit"}>Add Habit</NavLink>
-          <NavLink to={"/myhabbit"}>My Habbit</NavLink>
           <NavLink to={"/publichabits"}>Public Habits</NavLink>
+          {user && (
+            <>
+              <NavLink to={"/addhabit"}>Add Habit</NavLink>
+              <NavLink to={"/myhabbit"}>My Habbit</NavLink>
+            </>
+          )}
         </div>
         <div className="col-span-2 flex items-center justify-end gap-5 ">
-          <div>
-            <NavLink to={"/profile"}>
-              <img
-                src={
-                  user
-                    ? user.photoURL
-                    : "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
-                }
-                alt="user"
-                className="w-[50px] h-[50px] object-cover rounded-full border-3"
-              />
-            </NavLink>
-          </div>
+          {user && (
+            <>
+              <div>
+                <NavLink to={"/profile"}>
+                  <img
+                    src={
+                      user
+                        ? user.photoURL
+                        : "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
+                    }
+                    alt="user"
+                    className="w-[50px] h-[50px] object-cover rounded-full border-3"
+                  />
+                </NavLink>
+              </div>
+            </>
+          )}
           <div>
             {user ? (
               <button
