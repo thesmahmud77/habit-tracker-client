@@ -1,8 +1,43 @@
-import React from "react";
+import React, { use } from "react";
+import { AuthContext } from "../../Context/AuthContext";
 
 const HomeHabitsCard = ({ homeHabitsCard }) => {
   // console.log(homeHabitsCard);
-  const { title, category, reminderTime, userName, userPhoto } = homeHabitsCard;
+  const { user } = use(AuthContext);
+  const { _id, title, category, reminderTime, userName, userPhoto } =
+    homeHabitsCard;
+
+  const handleAddToMyHabit = async (habitData) => {
+    console.log(handleAddToMyHabit);
+    const newHabit = {
+      // লক্ষ্য করুন: আপনার destructuring এ ছিল 'title', কিন্তু এখানে লিখছেন 'habitTitle'
+      habitTitle: habitData.title,
+      category: habitData.category,
+      description: habitData.description || "No description provided",
+      visibility: "private",
+      reminderTime: habitData.reminderTime,
+      habitImage: habitData.habitImage || "",
+      userEmail: user?.email,
+      userName: user?.displayName,
+      userPhoto: user?.photoURL,
+      postCreateTime: new Date().toISOString().split("T")[0],
+      completionHistory: [],
+      currentStreak: 0,
+      currentStatus: "Add Task",
+    };
+    const response = await fetch("http://localhost:3000/my-habits", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newHabit),
+    });
+    const data = await response.json();
+    if (data.insertedId) {
+      alert("Added to My Habits! 🎉");
+    } else {
+      alert("Something went wrong! Try again.");
+    }
+  };
+
   return (
     <div>
       <div className="bg-white rounded-2xl p-6 shadow-sm border-2 border-gray-300 flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
@@ -62,8 +97,11 @@ const HomeHabitsCard = ({ homeHabitsCard }) => {
             </div>
           </div>
 
-          <button className="btn btn-ghost btn-sm border border-gray-200 normal-case hover:bg-gray-50 text-[#0f172a] px-4 rounded-lg">
-            View Details
+          <button
+            onClick={() => handleAddToMyHabit(homeHabitsCard)}
+            className="btn btn-outline"
+          >
+            Add To My Habit
           </button>
         </div>
       </div>
