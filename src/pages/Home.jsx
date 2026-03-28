@@ -2,8 +2,12 @@ import React from "react";
 import NavMenu from "../Components/NavMenu";
 import MainContainer from "../Container/MainContainer";
 import Footer from "../Components/Footer";
+import { useLoaderData } from "react-router";
+import RecentHabitsWrapper from "./Home/RecentHabitsWrapper";
 
 const Home = () => {
+  const homeHabits = useLoaderData();
+  // console.log(homeHabits);
   return (
     <MainContainer>
       <NavMenu></NavMenu>
@@ -20,7 +24,9 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="Feacture"></section>
+      <section className="Feacture">
+        <RecentHabitsWrapper homeHabits={homeHabits}></RecentHabitsWrapper>
+      </section>
       <section className="Hotel-Animation"></section>
       <section className="news-letter">
         <div className="text-center py-10">

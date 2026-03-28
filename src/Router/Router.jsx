@@ -13,6 +13,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <Home></Home>,
+    loader: () => fetch("http://localhost:3000/recent-habits"),
   },
   {
     path: "/addhabit",
@@ -33,6 +34,7 @@ export const router = createBrowserRouter([
   {
     path: "/publichabits",
     element: <PublicHabits></PublicHabits>,
+    loader: () => fetch("http://localhost:3000/habits"),
   },
   {
     path: "/login",
