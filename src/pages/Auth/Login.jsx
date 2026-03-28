@@ -1,15 +1,41 @@
-import React from "react";
+import React, { use } from "react";
 import MainContainer from "../../Container/MainContainer";
 import NavMenu from "../../Components/NavMenu";
 import Footer from "../../Components/Footer";
 import { Link } from "react-router";
+import { AuthContext } from "../../Context/AuthContext";
 
 const Login = () => {
+  const { GoogleSignUp, loginWithEP } = use(AuthContext);
+  const handleGoogleSignIn = () => {
+    GoogleSignUp()
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleLoginWithEP = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    // console.log(email, password);
+    loginWithEP(email, password)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <MainContainer>
       <NavMenu></NavMenu>
       <div className=" bg-amber-400 flex items-center justify-center min-h-screen flex-col">
-        <form action="">
+        <form onSubmit={handleLoginWithEP}>
           <fieldset className="fieldset">
             <div className="email">
               <label className="email">Email</label>
@@ -36,7 +62,10 @@ const Login = () => {
           </fieldset>
         </form>
         {/* <!-- Google --> */}
-        <button class="btn mt-5 bg-white text-black border-[#e5e5e5] w-[260px]">
+        <button
+          onClick={handleGoogleSignIn}
+          class="btn mt-5 bg-white text-black border-[#e5e5e5] w-[260px]"
+        >
           <svg
             aria-label="Google logo"
             width="16"
