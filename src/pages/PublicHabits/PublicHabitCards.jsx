@@ -1,6 +1,7 @@
 import React, { use } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const PublicHabitCards = ({ publicHabitCard }) => {
   // console.log(publicHabitCard);
@@ -113,12 +114,18 @@ const PublicHabitCards = ({ publicHabitCard }) => {
             </div>
           </div>
 
-          <button
-            onClick={() => handleAddCard(publicHabitCard)}
-            className="btn btn-outline"
-          >
-            Add To My Habid
-          </button>
+          {user ? (
+            <button
+              onClick={() => handleAddCard(publicHabitCard)}
+              className="btn btn-outline"
+            >
+              Add To My Habit
+            </button>
+          ) : (
+            <Link to={"/login"} className="btn btn-outline">
+              Add To My Habit
+            </Link>
+          )}
         </div>
       </div>
     </div>
