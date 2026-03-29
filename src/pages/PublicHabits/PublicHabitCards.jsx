@@ -1,9 +1,47 @@
-import React from "react";
+import React, { use } from "react";
+import { AuthContext } from "../../Context/AuthContext";
+import Swal from "sweetalert2";
 
 const PublicHabitCards = ({ publicHabitCard }) => {
   // console.log(publicHabitCard);
   const { habitTitle, description, reminderTime, userName, userPhoto } =
     publicHabitCard;
+  const { user } = use(AuthContext);
+
+  const handleAddCard = async (publicHabitCard) => {
+    // console.log({ user });
+
+    const newData = {
+      habitTitle: publicHabitCard.habitTitle,
+      description: publicHabitCard.description,
+      reminderTime: publicHabitCard.reminderTime,
+      userName: user.displayName,
+      userEmail: user.email,
+      userPhoto: user.photoURL,
+      id: publicHabitCard._id,
+    };
+    // console.log(newData);
+    const response = await fetch("http://localhost:3000/my-habits", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(newData),
+    });
+    const data = await response.json();
+    if (data.insertedId) {
+      Swal.fire({
+        title: "Hibit Add to your Profile",
+        icon: "success",
+        draggable: true,
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: '<a href="#">Why do I have this issue?</a>',
+      });
+    }
+  };
   return (
     <div>
       <div className="bg-white rounded-2xl p-6 shadow-sm border-2 border-gray-300 flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
@@ -65,7 +103,12 @@ const PublicHabitCards = ({ publicHabitCard }) => {
             </div>
           </div>
 
-          <button className="btn btn-outline">Add To My Habid</button>
+          <button
+            onClick={() => handleAddCard(publicHabitCard)}
+            className="btn btn-outline"
+          >
+            Add To My Habid
+          </button>
         </div>
       </div>
     </div>
