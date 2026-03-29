@@ -1,5 +1,6 @@
 import React, { use } from "react";
 import { AuthContext } from "../../Context/AuthContext";
+import Swal from "sweetalert2";
 
 const HomeHabitsCard = ({ homeHabitsCard }) => {
   // console.log(homeHabitsCard);
@@ -7,34 +8,48 @@ const HomeHabitsCard = ({ homeHabitsCard }) => {
   const { _id, title, category, reminderTime, userName, userPhoto } =
     homeHabitsCard;
 
-  const handleAddToMyHabit = async (habitData) => {
-    console.log(handleAddToMyHabit);
-    const newHabit = {
-      // লক্ষ্য করুন: আপনার destructuring এ ছিল 'title', কিন্তু এখানে লিখছেন 'habitTitle'
-      habitTitle: habitData.title,
-      category: habitData.category,
-      description: habitData.description || "No description provided",
-      visibility: "private",
-      reminderTime: habitData.reminderTime,
-      habitImage: habitData.habitImage || "",
-      userEmail: user?.email,
-      userName: user?.displayName,
-      userPhoto: user?.photoURL,
-      postCreateTime: new Date().toISOString().split("T")[0],
-      completionHistory: [],
-      currentStreak: 0,
-      currentStatus: "Add Task",
+  const handleAddCard = async (homeHabitsCard) => {
+    // console.log({ user });
+
+    const newData = {
+      habitTitle: homeHabitsCard.habitTitle,
+      description: homeHabitsCard.description,
+      reminderTime: homeHabitsCard.reminderTime,
+      userName: user.displayName,
+      userEmail: user.email,
+      userPhoto: user.photoURL,
+      id: homeHabitsCard._id,
     };
+    // console.log(newData);
     const response = await fetch("http://localhost:3000/my-habits", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newHabit),
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(newData),
     });
+
     const data = await response.json();
-    if (data.insertedId) {
-      alert("Added to My Habits! 🎉");
-    } else {
-      alert("Something went wrong! Try again.");
+    // Alert 1 — ⚠️ Warning
+    if (data.message === "Already added!") {
+      Swal.fire({
+        title: "Already Exist in your Profile!",
+        icon: "warning", // ← হলুদ warning
+      });
+    }
+
+    // Alert 2 — ✅ Success
+    else if (data.insertedId) {
+      Swal.fire({
+        title: "Habit Added to your Profile",
+        icon: "success", // ← সবুজ success
+      });
+    }
+
+    // Alert 3 — ❌ Error
+    else {
+      Swal.fire({
+        title: "Oops...",
+        icon: "error", // ← লাল error
+      });
     }
   };
 
@@ -98,7 +113,7 @@ const HomeHabitsCard = ({ homeHabitsCard }) => {
           </div>
 
           <button
-            onClick={() => handleAddToMyHabit(homeHabitsCard)}
+            onClick={() => handleAddCard(homeHabitsCard)}
             className="btn btn-outline"
           >
             Add To My Habit
