@@ -30,6 +30,7 @@ export const router = createBrowserRouter([
         <MyHabit></MyHabit>
       </PrivateRoutes>
     ),
+    loader: () => fetch("http://localhost:3000/my-habits"),
   },
   {
     path: "/publichabits",
