@@ -26,19 +26,29 @@ const PublicHabitCards = ({ publicHabitCard }) => {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(newData),
     });
+
     const data = await response.json();
-    if (data.insertedId) {
+    // Alert 1 — ⚠️ Warning
+    if (data.message === "Already added!") {
       Swal.fire({
-        title: "Hibit Add to your Profile",
-        icon: "success",
-        draggable: true,
+        title: "Already Exist in your Profile!",
+        icon: "warning", // ← হলুদ warning
       });
-    } else {
+    }
+
+    // Alert 2 — ✅ Success
+    else if (data.insertedId) {
       Swal.fire({
-        icon: "error",
+        title: "Habit Added to your Profile",
+        icon: "success", // ← সবুজ success
+      });
+    }
+
+    // Alert 3 — ❌ Error
+    else {
+      Swal.fire({
         title: "Oops...",
-        text: "Something went wrong!",
-        footer: '<a href="#">Why do I have this issue?</a>',
+        icon: "error", // ← লাল error
       });
     }
   };
