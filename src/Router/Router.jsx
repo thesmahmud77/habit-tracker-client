@@ -12,6 +12,7 @@ import PrivateRoutes from "./Private-Routes/PrivateRoutes";
 export const router = createBrowserRouter([
   {
     path: "/",
+    index: true,
     element: <Home></Home>,
     loader: () => fetch("http://localhost:3000/recent-habits"),
   },

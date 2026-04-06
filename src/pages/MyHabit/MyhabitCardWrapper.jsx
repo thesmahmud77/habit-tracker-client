@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import MyHabitCard from "./MyHabitCard";
+import { Link } from "react-router";
 
-const MyhabitCardWrapper = ({ myhabitdata, handleCompletedHabits }) => {
-  // ১. প্রপস থেকে আসা ডাটাকে একটি লোকাল স্টেটে রাখুন
+const MyhabitCardWrapper = ({ myhabitdata }) => {
   const [habits, setHabits] = useState(myhabitdata);
 
-  // যদি প্রপস কোনো কারণে পরে আপডেট হয়, তার জন্য এই useEffect (নিরাপত্তার জন্য)
   useEffect(() => {
     setHabits(myhabitdata);
   }, [myhabitdata]);
 
-  // ২. রিয়েল-টাইমে UI থেকে ডিলিট করার ফাংশন
   const handleDeleteFromUI = (id) => {
     const remaining = habits.filter((habit) => habit._id !== id);
     setHabits(remaining);
@@ -35,13 +33,19 @@ const MyhabitCardWrapper = ({ myhabitdata, handleCompletedHabits }) => {
           <p>Track your progress and stay consistent with your routines.</p>
         </div>
         <div>
-          <button className="btn btn-primary">Add New habit</button>
+          <Link to={"/addhabit"} className="btn btn-primary">
+            Add New habit
+          </Link>
+          {/* <button className="btn btn-primary">Add New habit</button> */}
         </div>
       </div>
       <div className="grid grid-cols-2">
-        <div className="bg-green-500 py-20">Total Habit:{habits.length}</div>
-        <div className="bg-blue-500 py-20">
-          Total Completed {completedCount}
+        <div className="bg-primary py-20 font-bold text-xl">
+          Total Habit: <span className="text-red-500"> {habits.length}</span>
+        </div>
+        <div className="bg-secondary py-20 font-bold text-xl">
+          Total Completed:{" "}
+          <span className="text-red-500"> {completedCount}</span>
         </div>
         <div></div>
       </div>
