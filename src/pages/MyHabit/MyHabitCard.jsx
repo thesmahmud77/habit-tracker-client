@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 
-const MyHabitCard = ({ tableHabitData }) => {
+const MyHabitCard = ({ tableHabitData, index, handleDeleteFromUI }) => {
   // console.log(tableHabitData);
   const [completeHabit, setCompleteHabit] = useState(tableHabitData);
   const { _id, habitTitle, reminderTime, currentStatus } = completeHabit;
@@ -33,7 +33,9 @@ const MyHabitCard = ({ tableHabitData }) => {
       .then((data) => {
         if (data.deletedCount > 0) {
           alert("Deleted!");
-          window.location.reload();
+          // setCompleteHabit(...completeHabit);
+          // window.location.reload();
+          handleDeleteFromUI(id);
         }
       });
   };
@@ -41,7 +43,7 @@ const MyHabitCard = ({ tableHabitData }) => {
     <div>
       <tbody className="overflow-x-auto  border border-gray-500 shadow-sm ">
         <tr className="grid grid-cols-12 gap-10 items-center justify-center">
-          <th className="col-span-2  text-center">1</th>
+          <th className="col-span-2  text-center">{index}</th>
           <td className="col-span-3  text-center">{habitTitle}</td>
           <td className="col-span-2  text-center">{reminderTime}</td>
           <td className="col-span-2  text-center">

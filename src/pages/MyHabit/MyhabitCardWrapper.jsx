@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MyHabitCard from "./MyHabitCard";
 
 const MyhabitCardWrapper = ({ myhabitdata }) => {
+  // ১. প্রপস থেকে আসা ডাটাকে একটি লোকাল স্টেটে রাখুন
+  const [habits, setHabits] = useState(myhabitdata);
+
+  // যদি প্রপস কোনো কারণে পরে আপডেট হয়, তার জন্য এই useEffect (নিরাপত্তার জন্য)
+  useEffect(() => {
+    setHabits(myhabitdata);
+  }, [myhabitdata]);
+
+  // ২. রিয়েল-টাইমে UI থেকে ডিলিট করার ফাংশন
+  const handleDeleteFromUI = (id) => {
+    const remaining = habits.filter((habit) => habit._id !== id);
+    setHabits(remaining);
+  };
+  const completedHabits = habits.filter(
+    (habits) => habits.currentStatus === "Complete",
+  );
   return (
     <div>
       <div className="flex items-center justify-between my-30">
@@ -13,11 +29,12 @@ const MyhabitCardWrapper = ({ myhabitdata }) => {
           <button className="btn btn-primary">Add New habit</button>
         </div>
       </div>
-      <div className="flex items-center justify-start gap-5">
-        <button className="btn btn-primary">All Habit</button>
-        <button className="btn btn-primary">private</button>
-        <button className="btn btn-primary">public</button>
-        <button className="btn btn-primary">Completed Today</button>
+      <div className="grid grid-cols-2">
+        <div className="bg-green-500 py-20">Total Habit:{habits.length}</div>
+        <div className="bg-blue-500 py-20">
+          Total Completed {completedHabits.length}
+        </div>
+        <div></div>
       </div>
       <div>
         <table className="table">
@@ -32,8 +49,12 @@ const MyhabitCardWrapper = ({ myhabitdata }) => {
             </tr>
           </thead>
           <div>
-            {myhabitdata.map((tableHabitData) => (
-              <MyHabitCard tableHabitData={tableHabitData}></MyHabitCard>
+            {habits.map((tableHabitData, index) => (
+              <MyHabitCard
+                tableHabitData={tableHabitData}
+                index={index}
+                handleDeleteFromUI={handleDeleteFromUI}
+              ></MyHabitCard>
             ))}
           </div>
         </table>
