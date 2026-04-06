@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MyHabitCard from "./MyHabitCard";
 
-const MyhabitCardWrapper = ({ myhabitdata }) => {
+const MyhabitCardWrapper = ({ myhabitdata, handleCompletedHabits }) => {
   // ১. প্রপস থেকে আসা ডাটাকে একটি লোকাল স্টেটে রাখুন
   const [habits, setHabits] = useState(myhabitdata);
 
@@ -15,9 +15,18 @@ const MyhabitCardWrapper = ({ myhabitdata }) => {
     const remaining = habits.filter((habit) => habit._id !== id);
     setHabits(remaining);
   };
-  const completedHabits = habits.filter(
-    (habits) => habits.currentStatus === "Complete",
-  );
+
+  const handleStatusUpdateUI = (id) => {
+    const updated = habits.map((habit) =>
+      habit._id === id ? { ...habit, currentStatus: "Complete" } : habit,
+    );
+    setHabits(updated);
+  };
+
+  const completedCount = habits.filter(
+    (h) => h.currentStatus === "Complete",
+  ).length;
+
   return (
     <div>
       <div className="flex items-center justify-between my-30">
@@ -32,7 +41,7 @@ const MyhabitCardWrapper = ({ myhabitdata }) => {
       <div className="grid grid-cols-2">
         <div className="bg-green-500 py-20">Total Habit:{habits.length}</div>
         <div className="bg-blue-500 py-20">
-          Total Completed {completedHabits.length}
+          Total Completed {completedCount}
         </div>
         <div></div>
       </div>
@@ -54,6 +63,7 @@ const MyhabitCardWrapper = ({ myhabitdata }) => {
                 tableHabitData={tableHabitData}
                 index={index}
                 handleDeleteFromUI={handleDeleteFromUI}
+                handleStatusUpdateUI={handleStatusUpdateUI}
               ></MyHabitCard>
             ))}
           </div>

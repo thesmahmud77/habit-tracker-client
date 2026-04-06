@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 
-const MyHabitCard = ({ tableHabitData, index, handleDeleteFromUI }) => {
+const MyHabitCard = ({
+  tableHabitData,
+  index,
+  handleDeleteFromUI,
+  handleStatusUpdateUI,
+}) => {
   // console.log(tableHabitData);
   const [completeHabit, setCompleteHabit] = useState(tableHabitData);
   const { _id, habitTitle, reminderTime, currentStatus } = completeHabit;
@@ -14,8 +19,9 @@ const MyHabitCard = ({ tableHabitData, index, handleDeleteFromUI }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
-          // রিয়েল-টাইম আপডেট করার জন্য স্টেট ফিল্টার করা
           setCompleteHabit({ ...completeHabit, currentStatus: "Complete" });
+          handleStatusUpdateUI(id);
+
           Swal.fire({
             title: "Status updated to Complete!!",
             icon: "success",
