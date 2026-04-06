@@ -41,10 +41,10 @@ const MyhabitCardWrapper = ({ myhabitdata }) => {
       </div>
       <div className="grid grid-cols-2">
         <div className="bg-primary py-20 font-bold text-xl">
-          Total Habit: <span className="text-red-500"> {habits.length}</span>
+          Panding Habit: <span className="text-red-500"> {habits.length}</span>
         </div>
         <div className="bg-secondary py-20 font-bold text-xl">
-          Total Completed:{" "}
+          Completed Habit:
           <span className="text-red-500"> {completedCount}</span>
         </div>
         <div></div>
@@ -64,6 +64,7 @@ const MyhabitCardWrapper = ({ myhabitdata }) => {
           <div>
             {habits.map((tableHabitData, index) => (
               <MyHabitCard
+                key={tableHabitData._id}
                 tableHabitData={tableHabitData}
                 index={index}
                 handleDeleteFromUI={handleDeleteFromUI}

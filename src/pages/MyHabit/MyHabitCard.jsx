@@ -38,10 +38,15 @@ const MyHabitCard = ({
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {
-          alert("Deleted!");
+          // alert("Deleted!");
           // setCompleteHabit(...completeHabit);
           // window.location.reload();
           handleDeleteFromUI(id);
+          Swal.fire({
+            title: "Delete Your Habit",
+            icon: "success",
+            draggable: true,
+          });
         }
       });
   };
